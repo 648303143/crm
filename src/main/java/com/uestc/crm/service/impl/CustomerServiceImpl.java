@@ -56,4 +56,11 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, CustomerPO>
         Page<CustomerPO> customerPage = customerMapper.selectPage(new Page<>(query.getCurrent(), query.getSize()), queryWrapper);
         return customerPage;
     }
+    public int deleteCustomerById(String custId) {
+        LambdaQueryWrapper<CustomerPO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CustomerPO::getCustId, custId);
+        int delete = customerMapper.delete(queryWrapper);
+        return delete;
+    }
+
 }

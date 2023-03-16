@@ -23,11 +23,11 @@ public class LoginTest {
     @Test
     public void testRegistry() {
         RegisterVO registerVO = new RegisterVO();
-        registerVO.setUsername("admin");
-        registerVO.setPassword("12345678");
-        registerVO.setCheckPassword("12345678");
-        registerVO.setEmail("648303143@qq.com");
-        registerVO.setPhoneNumber("11112333");
+        registerVO.setUsername("linghuchong");
+        registerVO.setPassword("linghuchong");
+        registerVO.setCheckPassword("linghuchong");
+        registerVO.setEmail("linghuchong@qq.com");
+        registerVO.setPhoneNumber("52356246");
         Result<Long> result = userController.register(registerVO);
         System.out.println(result);
 

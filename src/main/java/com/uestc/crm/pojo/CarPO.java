@@ -1,5 +1,6 @@
 package com.uestc.crm.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -26,9 +27,9 @@ public class CarPO {
 
     private String title;
 
-    private String bizID;
+    private String bizId;
 
-    private Integer price;
+    private Double price;
 
     private Boolean isBargain;
 
@@ -36,7 +37,7 @@ public class CarPO {
 
     private Date licensingTime;
 
-    private Integer engine;
+    private Double engine;
 
     private Integer fuelType;
 
@@ -44,12 +45,13 @@ public class CarPO {
 
     private Integer carType;
 
-    private Integer kilometer;
+    private Double kilometer;
 
     private String city;
 
     private String licensePlate;
 
+    @TableField("transmission_case")
     private Integer transmissionCase;
 
     private String color;

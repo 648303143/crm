@@ -1,5 +1,6 @@
 package com.uestc.crm.interceptor;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.gson.JsonObject;
 import com.uestc.crm.util.TokenUtil;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         String token = request.getHeader("Token");
 
-        if (token != null) {
+        if (StrUtil.isNotBlank(token)) {
             boolean result = TokenUtil.verify(token);
             if (result) {
                 System.out.println("通过拦截器");
@@ -47,12 +48,12 @@ public class TokenInterceptor implements HandlerInterceptor {
             JsonObject json = new JsonObject();
             json.addProperty("success", "false");
             json.addProperty("msg", "认证失败，未通过拦截器");
-            json.addProperty("code", "500");
+            json.addProperty("code", 50008);
             response.getWriter().append(json.toString());
             System.out.println("认证失败，未通过拦截器");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendError(500);
+            response.sendError(50008);
             return false;
         }
         return false;

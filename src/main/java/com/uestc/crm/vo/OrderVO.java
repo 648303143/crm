@@ -1,7 +1,5 @@
-package com.uestc.crm.pojo;
+package com.uestc.crm.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,16 +8,14 @@ import java.util.Date;
 
 /**
  * @author zhangqingyang
- * @create 2023-02-2023/2/9 18:06
+ * @create 2023-03-2023/3/16 16:28
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("t_order")
-public class OrderPO {
+public class OrderVO {
 
-    @TableId
     private Long id;
 
     private String orderId;
@@ -29,6 +25,8 @@ public class OrderPO {
     private String username;
 
     private String carId;
+
+    private String carTitle;
 
     private Boolean isLoad;
 

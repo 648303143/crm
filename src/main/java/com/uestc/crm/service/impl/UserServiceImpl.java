@@ -53,9 +53,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
         if (password.length() < 8 || checkPassword.length() < 8) {
             throw new RuntimeException("密码小于8位");
         }
-        if (username.length() > 10) {
-            throw new RuntimeException("名字大于10位");
-        }
         //密码和校验密码相同
         if (!password.equals(checkPassword)) {
             throw new RuntimeException("密码和校验密码相同");

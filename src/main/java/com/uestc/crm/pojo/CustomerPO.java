@@ -33,9 +33,17 @@ public class CustomerPO {
 
     private String phone;
 
+    private String city;
+
     private Integer age;
 
-    private String city;
+    private String custCall;
+
+    private Integer carType;
+
+    private String budget;
+
+    private Integer intention;
 
     private Date createTime;
 

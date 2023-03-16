@@ -1,67 +1,56 @@
 package com.uestc.crm.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.google.gson.Gson;
-import com.uestc.crm.pojo.BusinessPO;
-import com.uestc.crm.pojo.CarPO;
-import com.uestc.crm.query.ListBusinessQuery;
-import com.uestc.crm.query.ListCarQuery;
-import com.uestc.crm.service.impl.CarServiceImpl;
+import com.uestc.crm.pojo.CluePO;
+import com.uestc.crm.query.ListClueQuery;
+import com.uestc.crm.service.impl.ClueServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author zhangqingyang
  * @create 2023-02-2023/2/9 18:52
  */
 @RestController
-@RequestMapping("/car")
+@RequestMapping("/clue")
 @CrossOrigin
-public class CarController {
+public class ClueController {
 
     @Autowired
-    private CarServiceImpl carServiceImpl;
-
+    private ClueServiceImpl clueServiceImpl;
     @PostMapping("/add")
-    public Result addCar(@RequestBody CarPO carPO) {
+    public Result addClue(@RequestBody CluePO cluePO) {
         try {
-            carServiceImpl.addCar(carPO);
+            clueServiceImpl.addClue(cluePO);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.error(ExceptionCodeEnum.ERROR);
         }
         return Result.success();
-
     }
 
     @PostMapping("/update")
-    public Result updateCar(@RequestBody CarPO carPO) {
+    public Result updateClue(@RequestBody CluePO cluePO) {
         try {
-            carServiceImpl.updateCarById(carPO);
+            clueServiceImpl.updateClueById(cluePO);
         } catch (Exception e) {
-            e.printStackTrace();
             return Result.error(ExceptionCodeEnum.ERROR);
         }
         return Result.success();
     }
 
     @PostMapping("/list")
-    public Result<IPage<CarPO>> listCar(@RequestBody ListCarQuery query) {
-        IPage<CarPO> carPOS;
+    public Result<IPage<CluePO>> listClue(@RequestBody ListClueQuery query) {
+        IPage<CluePO> cluePOS;
         try {
-
-            carPOS = carServiceImpl.listCar(query);
-
+            cluePOS = clueServiceImpl.listClue(query);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.error(ExceptionCodeEnum.ERROR);
         }
-        return Result.success(carPOS);
+        return Result.success(cluePOS);
     }
 
 

@@ -56,5 +56,15 @@ public class CustomerController {
         return Result.success(customerPOS);
     }
 
+    @PostMapping("/delete")
+    public Result deleteCustomer(@RequestBody String custId) {
+        try {
+            customerServiceImpl.deleteCustomerById(custId);
+        } catch (Exception e) {
+            return Result.error(ExceptionCodeEnum.ERROR);
+        }
+        return Result.success();
+    }
+
 
 }

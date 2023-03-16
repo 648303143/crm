@@ -10,5 +10,9 @@ import lombok.Data;
 @Data
 public class ListOrderQuery extends BasePageQuery{
 
+    private String orderId;
+    private String custId;
+    private String username;
+    private Integer state;
 
 }

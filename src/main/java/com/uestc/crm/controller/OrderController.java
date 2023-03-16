@@ -2,19 +2,14 @@ package com.uestc.crm.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.gson.Gson;
-import com.uestc.crm.pojo.CarPO;
-import com.uestc.crm.pojo.CustomerPO;
 import com.uestc.crm.pojo.OrderPO;
-import com.uestc.crm.query.ListCustomerQuery;
 import com.uestc.crm.query.ListOrderQuery;
 import com.uestc.crm.service.impl.OrderServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
+import com.uestc.crm.vo.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author zhangqingyang
@@ -29,10 +24,8 @@ public class OrderController {
     private OrderServiceImpl orderServiceImpl;
 
     @PostMapping("/add")
-    public Result addOrder(@RequestBody String orderJson) {
+    public Result addOrder(@RequestBody OrderPO orderPO) {
         try {
-            Gson gson = new Gson();
-            OrderPO orderPO = gson.fromJson(orderJson, OrderPO.class);
             orderServiceImpl.addOrder(orderPO);
 
         } catch (Exception e) {
@@ -42,10 +35,8 @@ public class OrderController {
     }
 
     @PostMapping("/update")
-    public Result updateOrder(@RequestBody String orderJson) {
+    public Result updateOrder(@RequestBody OrderPO orderPO) {
         try {
-            Gson gson = new Gson();
-            OrderPO orderPO = gson.fromJson(orderJson, OrderPO.class);
             orderServiceImpl.updateOrderById(orderPO);
         } catch (Exception e) {
             return Result.error(ExceptionCodeEnum.ERROR);
@@ -54,11 +45,9 @@ public class OrderController {
     }
 
     @PostMapping("/list")
-    public Result<IPage<OrderPO>> listOrder(@RequestBody String listQuery) {
-        IPage<OrderPO> orderPOS;
+    public Result<IPage<OrderVO>> listOrder(@RequestBody ListOrderQuery query) {
+        IPage<OrderVO> orderPOS;
         try {
-            Gson gson = new Gson();
-            ListOrderQuery query = gson.fromJson(listQuery, ListOrderQuery.class);
             orderPOS = orderServiceImpl.listOrder(query);
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,5 +56,14 @@ public class OrderController {
         return Result.success(orderPOS);
     }
 
+    @PostMapping("/delete")
+    public Result deleteOrder(@RequestBody String orderId) {
+        try {
+            orderServiceImpl.deleteOrder(orderId);
+        } catch (Exception e) {
+            return Result.error(ExceptionCodeEnum.ERROR);
+        }
+        return Result.success();
+    }
 
 }

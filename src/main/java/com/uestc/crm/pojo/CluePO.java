@@ -10,40 +10,24 @@ import java.util.Date;
 
 /**
  * @author zhangqingyang
- * @create 2023-02-2023/2/9 18:06
+ * @create 2023-03-2023/3/15 17:42
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("t_order")
-public class OrderPO {
+@TableName("t_clue")
+public class CluePO {
 
     @TableId
     private Long id;
-
-    private String orderId;
-
-    private String custId;
-
-    private String username;
-
-    private String carId;
-
-    private Boolean isLoad;
-
-    private String lookTime;
-
-    private Integer state;
-
-    private String failReason;
-
-    private String remark;
-
     private String clueId;
-
+    private String custId;
+    private Integer clueWay;
+    private Integer clueType;
+    private Boolean isDistribute;
+    private String username;
+    private Boolean isHandle;
     private Date createTime;
-
     private Date updateTime;
 
 }
