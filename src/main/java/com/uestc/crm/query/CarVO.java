@@ -1,24 +1,23 @@
-package com.uestc.crm.pojo;
+package com.uestc.crm.query;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
 /**
  * @author zhangqingyang
- * @create 2023-02-2023/2/9 18:06
+ * @create 2023-03-2023/3/17 22:50
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("t_car")
-public class CarPO {
+public class CarVO {
 
     @TableId
     private Long id;
@@ -55,6 +54,8 @@ public class CarPO {
     private Integer transmissionCase;
 
     private String color;
+
+    private String[] picture;
 
     private String info;
 

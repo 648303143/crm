@@ -4,6 +4,7 @@ import com.uestc.crm.interceptor.TokenInterceptor;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
@@ -27,12 +28,19 @@ public class InterceptorConfig implements WebMvcConfigurer {
         List<String> excludePath = new ArrayList<>();
         //登录
         excludePath.add("/user/login");
+        excludePath.add("/static/**");
+        excludePath.add("/404");
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath);
         //除了登陆接口其他所有接口都需要token验证
         WebMvcConfigurer.super.addInterceptors(registry);
 
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");//
     }
 
 }

@@ -1,5 +1,6 @@
 package com.uestc.crm.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.gson.Gson;
@@ -66,5 +67,18 @@ public class CustomerController {
         return Result.success();
     }
 
+
+    @PostMapping("/getById")
+    public Result getCustomerById(@RequestBody String custId) {
+        CustomerPO customerPO;
+        try {
+            LambdaQueryWrapper<CustomerPO> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(CustomerPO::getCustId, custId);
+            customerPO = customerServiceImpl.getOne(queryWrapper);
+        } catch (Exception e) {
+            return Result.error(ExceptionCodeEnum.ERROR);
+        }
+        return Result.success(customerPO);
+    }
 
 }
