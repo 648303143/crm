@@ -1,6 +1,8 @@
 package com.uestc.crm.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -42,7 +44,21 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, CluePO> implements 
 
     public IPage<CluePO> listClue(ListClueQuery query) {
         LambdaQueryWrapper<CluePO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CluePO::getUsername, query.getUsername())
+                .eq(StrUtil.isNotBlank(query.getCustId()), CluePO:: getCustId, query.getCustId());
         Page<CluePO> CluePage = clueMapper.selectPage(new Page<>(query.getCurrent(), query.getSize()), queryWrapper);
         return CluePage;
+    }
+
+    public String distributeClue(String username) {
+        LambdaQueryWrapper<CluePO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CluePO::getUsername, "nobody")
+                .last("limit 1");
+        CluePO cluePO = clueMapper.selectOne(queryWrapper);
+        cluePO.setUsername(username);
+        queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CluePO::getClueId, cluePO.getClueId());
+        clueMapper.update(cluePO, queryWrapper);
+        return cluePO.getClueId();
     }
 }

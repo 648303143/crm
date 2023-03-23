@@ -50,9 +50,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
         if (!StrUtil.isAllNotBlank(email, password, checkPassword, username)) {
             throw new RuntimeException("请求参数为空");
         }
-        if (password.length() < 8 || checkPassword.length() < 8) {
-            throw new RuntimeException("密码小于8位");
-        }
         //密码和校验密码相同
         if (!password.equals(checkPassword)) {
             throw new RuntimeException("密码和校验密码相同");

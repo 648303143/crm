@@ -43,6 +43,8 @@ public class CustomerPO {
 
     private String budget;
 
+    private Boolean isLoad;
+
     private Integer intention;
 
     private Date createTime;

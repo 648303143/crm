@@ -1,4 +1,4 @@
-package com.uestc.crm.query;
+package com.uestc.crm.vo;
 
 import lombok.Data;
 

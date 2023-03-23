@@ -1,5 +1,6 @@
 package com.uestc.crm.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,6 @@ public class CluePO {
     private String custId;
     private Integer clueWay;
     private Integer clueType;
-    private Boolean isDistribute;
     private String username;
     private Boolean isHandle;
     private Date createTime;

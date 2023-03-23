@@ -1,13 +1,7 @@
 package com.uestc.crm.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.uestc.crm.pojo.CustomerPO;
 import com.uestc.crm.pojo.UserPO;
-import com.uestc.crm.query.LoginVO;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 /**
  * @author zhangqingyang

@@ -7,6 +7,7 @@ import com.uestc.crm.query.ListOrderQuery;
 import com.uestc.crm.service.impl.OrderServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
+import com.uestc.crm.vo.OrderAddVO;
 import com.uestc.crm.vo.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,9 @@ public class OrderController {
     private OrderServiceImpl orderServiceImpl;
 
     @PostMapping("/add")
-    public Result addOrder(@RequestBody OrderPO orderPO) {
+    public Result addOrder(@RequestBody OrderAddVO orderAddVO) {
         try {
-            orderServiceImpl.addOrder(orderPO);
+            orderServiceImpl.addOrder(orderAddVO);
 
         } catch (Exception e) {
             return Result.error(ExceptionCodeEnum.ERROR);
@@ -49,6 +50,18 @@ public class OrderController {
         IPage<OrderVO> orderPOS;
         try {
             orderPOS = orderServiceImpl.listOrder(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error(ExceptionCodeEnum.ERROR);
+        }
+        return Result.success(orderPOS);
+    }
+
+    @PostMapping("/my/list")
+    public Result<IPage<OrderVO>> listMyOrder(@RequestBody ListOrderQuery query) {
+        IPage<OrderVO> orderPOS;
+        try {
+            orderPOS = orderServiceImpl.listMyOrder(query);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.error(ExceptionCodeEnum.ERROR);

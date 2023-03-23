@@ -2,23 +2,15 @@ package com.uestc.crm.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.google.gson.Gson;
-import com.uestc.crm.pojo.BrandPO;
-import com.uestc.crm.pojo.BusinessPO;
 import com.uestc.crm.pojo.CarPO;
-import com.uestc.crm.query.CarVO;
-import com.uestc.crm.query.ListBusinessQuery;
 import com.uestc.crm.query.ListCarQuery;
 import com.uestc.crm.service.impl.CarServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

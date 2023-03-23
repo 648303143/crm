@@ -2,15 +2,13 @@ package com.uestc.crm.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.uestc.crm.pojo.UserPO;
-import com.uestc.crm.query.LoginVO;
-import com.uestc.crm.query.RegisterVO;
+import com.uestc.crm.vo.LoginVO;
+import com.uestc.crm.vo.RegisterVO;
 import com.uestc.crm.service.impl.UserServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 /**
  * @author zhangqingyang

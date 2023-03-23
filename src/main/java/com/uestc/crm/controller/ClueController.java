@@ -20,29 +20,9 @@ public class ClueController {
 
     @Autowired
     private ClueServiceImpl clueServiceImpl;
-    @PostMapping("/add")
-    public Result addClue(@RequestBody CluePO cluePO) {
-        try {
-            clueServiceImpl.addClue(cluePO);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.error(ExceptionCodeEnum.ERROR);
-        }
-        return Result.success();
-    }
-
-    @PostMapping("/update")
-    public Result updateClue(@RequestBody CluePO cluePO) {
-        try {
-            clueServiceImpl.updateClueById(cluePO);
-        } catch (Exception e) {
-            return Result.error(ExceptionCodeEnum.ERROR);
-        }
-        return Result.success();
-    }
 
     @PostMapping("/list")
-    public Result<IPage<CluePO>> listClue(@RequestBody ListClueQuery query) {
+    public Result<IPage<CluePO>> listMyClue(@RequestBody ListClueQuery query) {
         IPage<CluePO> cluePOS;
         try {
             cluePOS = clueServiceImpl.listClue(query);
@@ -51,6 +31,18 @@ public class ClueController {
             return Result.error(ExceptionCodeEnum.ERROR);
         }
         return Result.success(cluePOS);
+    }
+
+    @PostMapping("/assignment/distribute")
+    public Result<String> distributeClue(@RequestBody String username) {
+        String clueId;
+        try {
+            clueId = clueServiceImpl.distributeClue(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error(ExceptionCodeEnum.ERROR);
+        }
+        return Result.success(clueId);
     }
 
 

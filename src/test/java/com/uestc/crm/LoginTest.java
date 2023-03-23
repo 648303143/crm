@@ -1,14 +1,11 @@
 package com.uestc.crm;
 
 import com.uestc.crm.controller.UserController;
-import com.uestc.crm.query.LoginVO;
-import com.uestc.crm.query.RegisterVO;
+import com.uestc.crm.vo.RegisterVO;
 import com.uestc.crm.util.Result;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Date;
 
 /**
  * @author zhangqingyang
@@ -23,11 +20,11 @@ public class LoginTest {
     @Test
     public void testRegistry() {
         RegisterVO registerVO = new RegisterVO();
-        registerVO.setUsername("linghuchong");
-        registerVO.setPassword("linghuchong");
-        registerVO.setCheckPassword("linghuchong");
-        registerVO.setEmail("linghuchong@qq.com");
-        registerVO.setPhoneNumber("52356246");
+        registerVO.setUsername("huyidao");
+        registerVO.setPassword("huyidao");
+        registerVO.setCheckPassword("huyidao");
+        registerVO.setEmail("huyidao@qq.com");
+        registerVO.setPhoneNumber("12324354567");
         Result<Long> result = userController.register(registerVO);
         System.out.println(result);
 

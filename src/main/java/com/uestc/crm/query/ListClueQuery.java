@@ -9,4 +9,6 @@ import lombok.Data;
 
 @Data
 public class ListClueQuery extends BasePageQuery{
+    private String custId;
+    private String username;
 }
