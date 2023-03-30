@@ -12,12 +12,11 @@ import com.uestc.crm.service.UserService;
 import com.uestc.crm.util.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,8 +29,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
     @Resource
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     public static final String SALT = "zqy";
 
@@ -92,9 +92,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
             throw new RuntimeException("参数不能为空");
         }
 
-        if (password.length() < 8) {
-            throw new RuntimeException("密码长度不能小于8");
-        }
         //2.加密
         String encryptPassword = Base64.encode((SALT + password).getBytes(StandardCharsets.UTF_8));
         //判断账户是否存在
@@ -113,19 +110,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
         String token = TokenUtil.sign(username, loginTime);
         //断言token不为空，并存入redis
         assert token != null;
-        stringRedisTemplate.opsForValue().set(token, username, 1, TimeUnit.DAYS);
-        System.out.println();
-        System.out.println(token);
-        System.out.println();
+        redisTemplate.opsForValue().set(token, user, 12, TimeUnit.HOURS);
+
         return token;
     }
 
     public UserPO getUserInfo(String token) {
-        String username = stringRedisTemplate.opsForValue().get(token);
-
-        LambdaQueryWrapper<UserPO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserPO::getUsername, username);
-        UserPO userPO = userMapper.selectOne(queryWrapper);
+        UserPO userPO = (UserPO) redisTemplate.opsForValue().get(token);
         return userPO;
+    }
+
+    public Boolean logout(String token) {
+        Boolean delete = redisTemplate.delete(token);
+        return delete;
     }
 }

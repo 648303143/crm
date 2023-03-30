@@ -73,12 +73,25 @@ public class UserController {
         return Result.success(token);
     }
 
+    @PostMapping("/logout")
+    public Result logout(@RequestBody String token) {
+        try {
+            userService.logout(token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error(ExceptionCodeEnum.ERROR, e.getMessage());
+        }
+
+        return Result.success();
+    }
+
     @PostMapping("/info")
     public Result<UserPO> getUserInfo(@RequestBody String token) {
         UserPO userInfo;
         try {
             userInfo = userService.getUserInfo(token);
         } catch (Exception e) {
+            e.printStackTrace();
             return Result.error(ExceptionCodeEnum.ERROR, e.getMessage());
         }
 

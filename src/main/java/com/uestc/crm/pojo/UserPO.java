@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("t_user")
-public class UserPO {
+public class UserPO implements Serializable {
 
     @TableId
     private Long id;
@@ -28,7 +29,7 @@ public class UserPO {
 
     private String email;
 
-    private Integer role;
+    private String role;
 
     private Date createTime;
 
