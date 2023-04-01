@@ -58,12 +58,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuPO> implements 
         if (roleId == 1) {
             menus = menuMapper.selectList(new LambdaQueryWrapper<>());
         } else {
-            LambdaQueryWrapper<MenuPO> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.in(MenuPO::getMenuType, 'M', 'C')
-                    .eq(MenuPO::getStatus, 0)
-                    .orderByAsc(MenuPO::getParentId)
-                    .orderByAsc(MenuPO::getOrderNum);
-            menus = menuMapper.selectList(queryWrapper);
+            MPJLambdaWrapper<MenuPO> queryWrapper = new MPJLambdaWrapper<>();
+            queryWrapper.selectAll(MenuPO.class)
+                    .leftJoin(RoleMenuPO.class, RoleMenuPO::getMenuId, MenuPO::getMenuId)
+                    .leftJoin(RolePO.class, RolePO::getRoleId, RoleMenuPO::getRoleId)
+                    .eq(RolePO::getRoleId, roleId)
+                    .in(MenuPO::getMenuType, "M", "C")
+                    .eq(RolePO::getStatus, 0)
+                    .eq(MenuPO::getStatus, 0);
+            menus = menuMapper.selectJoinList(MenuPO.class, queryWrapper);
         }
         return getChildPerms(menus, 0);
     }
@@ -347,8 +350,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuPO> implements 
             routerPath = innerLinkReplaceEach(routerPath);
         }
         // 非外链并且是一级目录（类型为目录）
-        if (0 == menu.getParentId().intValue() && "M".equals(menu.getMenuType())
-                && menu.getIsFrame() == 1) {
+        if (0 == menu.getParentId().intValue() && "M".equals(menu.getMenuType())) {
             routerPath = "/" + menu.getPath();
         }
         // 非外链并且是一级目录（类型为菜单）
@@ -383,8 +385,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuPO> implements 
      * @return 结果
      */
     public boolean isMenuFrame(MenuPO menu) {
-        return menu.getParentId().intValue() == 0 && "C".equals(menu.getMenuType())
-                && menu.getIsFrame() == 1;
+        return menu.getParentId().intValue() == 0 && "C".equals(menu.getMenuType());
     }
 
     /**
@@ -394,7 +395,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuPO> implements 
      * @return 结果
      */
     public boolean isInnerLink(MenuPO menu) {
-        return menu.getIsFrame() == 1 && StringUtils.startsWithAny(menu.getPath(), Constants.HTTP, Constants.HTTPS);
+        return StringUtils.startsWithAny(menu.getPath(), Constants.HTTP, Constants.HTTPS);
     }
 
     /**

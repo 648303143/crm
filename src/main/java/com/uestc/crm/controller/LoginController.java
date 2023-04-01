@@ -1,7 +1,6 @@
 package com.uestc.crm.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.uestc.crm.common.CacheConstants;
 import com.uestc.crm.pojo.MenuPO;
 import com.uestc.crm.pojo.UserPO;
 import com.uestc.crm.service.impl.LoginService;
@@ -14,13 +13,11 @@ import com.uestc.crm.vo.LoginVO;
 import com.uestc.crm.vo.RegisterVO;
 import com.uestc.crm.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Set;
 
@@ -40,11 +37,6 @@ public class LoginController {
 
     @Autowired
     private MenuServiceImpl menuService;
-
-    @Autowired
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
-
 
     /**
      * 注册功能
@@ -92,18 +84,6 @@ public class LoginController {
         return Result.success(token);
     }
 
-    @PostMapping("/logout")
-    public Result logout(@RequestBody String tokenId) {
-        try {
-            redisTemplate.delete(CacheConstants.LOGIN_TOKEN_KEY + tokenId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.error(ExceptionCodeEnum.ERROR, e.getMessage());
-        }
-
-        return Result.success();
-    }
-
     @PostMapping("/userinfo")
     public Result<UserInfoVO> getUserInfo() {
         UserInfoVO userInfo = new UserInfoVO();
@@ -123,7 +103,7 @@ public class LoginController {
         return Result.success(userInfo);
     }
 
-    @PostMapping("getRouters")
+    @PostMapping("/getRouters")
     public Result getRouters() {
         UserPO user = SecurityUtils.getLoginUser().getUser();
         List<MenuPO> menus = menuService.getMenuTreeByRoleId(user.getRoleId());

@@ -2,7 +2,6 @@ package com.uestc.crm.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,14 +40,11 @@ public class RolePO {
     private Integer deptCheckStrictly;
 
     /** 角色状态（0正常 1停用） */
-    private String status;
+    private Integer status;
 
     /** 创建时间 */
     private Date createTime;
 
     /** 更新时间 */
     private Date updateTime;
-
-    /** 备注 */
-    private String remark;
 }
