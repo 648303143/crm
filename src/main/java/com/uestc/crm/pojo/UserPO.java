@@ -29,7 +29,7 @@ public class UserPO implements Serializable {
 
     private String email;
 
-    private String role;
+    private Long roleId;
 
     private Date createTime;
 

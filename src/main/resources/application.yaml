@@ -1,6 +1,7 @@
 
 server:
   port: 8080   #端口号
+  address: 0.0.0.0
 
 spring:
   datasource:
@@ -43,3 +44,12 @@ mybatis-plus:
     call-setters-on-nulls: true
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# token配置
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥
+  secret: zqy_crm
+  # 令牌有效期（默认30分钟）
+  expireTime: 240
