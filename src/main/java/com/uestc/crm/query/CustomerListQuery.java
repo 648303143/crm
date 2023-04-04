@@ -8,11 +8,10 @@ import lombok.Data;
  */
 
 @Data
-public class ListOrderQuery extends BasePageQuery{
-
-    private String orderId;
+public class CustomerListQuery extends BasePageQuery{
     private String custId;
-    private String username;
-    private Integer state;
+    private String nickname;
+    private String name;
+    private String phone;
 
 }

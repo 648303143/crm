@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.uestc.crm.mapper.CustomerMapper;
 import com.uestc.crm.pojo.CustomerPO;
-import com.uestc.crm.query.ListCustomerQuery;
+import com.uestc.crm.query.CustomerListQuery;
 import com.uestc.crm.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, CustomerPO>
         return update;
     }
 
-    public IPage<CustomerPO> listCustomer(ListCustomerQuery query) {
+    public IPage<CustomerPO> listCustomer(CustomerListQuery query) {
         LambdaQueryWrapper<CustomerPO> queryWrapper = new LambdaQueryWrapper<>();
         if (StringUtils.isNotEmpty(query.getCustId())){
             queryWrapper.eq(CustomerPO::getCustId, query.getCustId());

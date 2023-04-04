@@ -2,10 +2,8 @@ package com.uestc.crm.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.gson.Gson;
 import com.uestc.crm.pojo.CustomerPO;
-import com.uestc.crm.query.ListCustomerQuery;
+import com.uestc.crm.query.CustomerListQuery;
 import com.uestc.crm.service.impl.CustomerServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
@@ -46,7 +44,7 @@ public class CustomerController {
     }
 
     @PostMapping("/list")
-    public Result<IPage<CustomerPO>> listCustomer(@RequestBody ListCustomerQuery query) {
+    public Result<IPage<CustomerPO>> listCustomer(@RequestBody CustomerListQuery query) {
         IPage<CustomerPO> customerPOS;
         try {
             customerPOS = customerServiceImpl.listCustomer(query);

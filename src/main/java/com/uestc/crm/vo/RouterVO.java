@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class RouterVo
+public class RouterVO
 {
     /**
      * 路由名字
@@ -56,11 +56,11 @@ public class RouterVo
     /**
      * 其他元素
      */
-    private MetaVo meta;
+    private MetaVO meta;
 
     /**
      * 子路由
      */
-    private List<RouterVo> children;
+    private List<RouterVO> children;
 
 }

@@ -38,15 +38,15 @@ public class LoginService {
     /**
      * 用户注册
      *
-     * @param email         邮箱
+     * @param phonenumber         邮箱
      * @param password      用户密码
      * @param checkPassword 用户检验密码
      * @param username      用户名字
      * @return
      */
-    public long userRegister(String username, String password, String checkPassword, String email) {
+    public long userRegister(String username, String password, String checkPassword, String phonenumber) {
         //1.校验
-        if (!StrUtil.isAllNotBlank(email, password, checkPassword, username)) {
+        if (!StrUtil.isAllNotBlank(phonenumber, password, checkPassword, username)) {
             throw new RuntimeException("请求参数为空");
         }
         //密码和校验密码相同
@@ -55,7 +55,7 @@ public class LoginService {
         }
         //账户邮箱不能重复
         LambdaQueryWrapper<UserPO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserPO::getEmail, email);
+        queryWrapper.eq(UserPO::getPhonenumber, phonenumber);
         Long count = userMapper.selectCount(queryWrapper);
         if (count > 0) {
             throw new RuntimeException("账户邮箱不能重复");
@@ -72,7 +72,7 @@ public class LoginService {
         String encryptPassword = Base64.encode((SALT + password).getBytes(StandardCharsets.UTF_8));
         //3.插入数据
         UserPO user = new UserPO();
-        user.setEmail(email);
+        user.setPhonenumber(phonenumber);
         user.setPassword(encryptPassword);
         user.setUsername(username);
 

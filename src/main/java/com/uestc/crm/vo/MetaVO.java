@@ -11,7 +11,7 @@ import lombok.Data;
  */
 
 @Data
-public class MetaVo
+public class MetaVO
 {
     /**
      * 设置该路由在侧边栏和面包屑中展示的名字
@@ -33,31 +33,31 @@ public class MetaVo
      */
     private String link;
 
-    public MetaVo()
+    public MetaVO()
     {
     }
 
-    public MetaVo(String title, String icon)
+    public MetaVO(String title, String icon)
     {
         this.title = title;
         this.icon = icon;
     }
 
-    public MetaVo(String title, String icon, boolean noCache)
+    public MetaVO(String title, String icon, boolean noCache)
     {
         this.title = title;
         this.icon = icon;
         this.noCache = noCache;
     }
 
-    public MetaVo(String title, String icon, String link)
+    public MetaVO(String title, String icon, String link)
     {
         this.title = title;
         this.icon = icon;
         this.link = link;
     }
 
-    public MetaVo(String title, String icon, boolean noCache, String link)
+    public MetaVO(String title, String icon, boolean noCache, String link)
     {
         this.title = title;
         this.icon = icon;

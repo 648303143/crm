@@ -1,6 +1,5 @@
 package com.uestc.crm.query;
 
-import com.uestc.crm.query.BasePageQuery;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,7 +10,7 @@ import java.util.Date;
  */
 
 @Data
-public class ListCarQuery extends BasePageQuery {
+public class CarListQuery extends BasePageQuery {
 
     private String carId;
     private String title;

@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import com.uestc.crm.mapper.BrandMapper;
 import com.uestc.crm.mapper.CarMapper;
 import com.uestc.crm.mapper.CarPictureMapper;
@@ -13,7 +12,7 @@ import com.uestc.crm.pojo.BrandPO;
 import com.uestc.crm.pojo.CarPO;
 import com.uestc.crm.pojo.CarPicturePO;
 import com.uestc.crm.pojo.SeriesPO;
-import com.uestc.crm.query.ListCarQuery;
+import com.uestc.crm.query.CarListQuery;
 import com.uestc.crm.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -111,7 +110,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, CarPO> implements Car
         return carPO;
     }
 
-    public Page<CarPO> listCar(ListCarQuery query) {
+    public Page<CarPO> listCar(CarListQuery query) {
         LambdaQueryWrapper<CarPO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(StrUtil.isNotBlank(query.getCarId()), CarPO::getCarId, query.getCarId())
                 .like(StrUtil.isNotBlank(query.getTitle()), CarPO::getTitle, query.getTitle())

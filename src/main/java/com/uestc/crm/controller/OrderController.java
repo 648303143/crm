@@ -1,9 +1,8 @@
 package com.uestc.crm.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.google.gson.Gson;
 import com.uestc.crm.pojo.OrderPO;
-import com.uestc.crm.query.ListOrderQuery;
+import com.uestc.crm.query.OrderListQuery;
 import com.uestc.crm.service.impl.OrderServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
@@ -46,7 +45,7 @@ public class OrderController {
     }
 
     @PostMapping("/list")
-    public Result<IPage<OrderVO>> listOrder(@RequestBody ListOrderQuery query) {
+    public Result<IPage<OrderVO>> listOrder(@RequestBody OrderListQuery query) {
         IPage<OrderVO> orderPOS;
         try {
             orderPOS = orderServiceImpl.listOrder(query);
@@ -58,7 +57,7 @@ public class OrderController {
     }
 
     @PostMapping("/my/list")
-    public Result<IPage<OrderVO>> listMyOrder(@RequestBody ListOrderQuery query) {
+    public Result<IPage<OrderVO>> listMyOrder(@RequestBody OrderListQuery query) {
         IPage<OrderVO> orderPOS;
         try {
             orderPOS = orderServiceImpl.listMyOrder(query);

@@ -2,7 +2,6 @@ package com.uestc.crm.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -10,7 +9,7 @@ import com.uestc.crm.mapper.ClueMapper;
 
 import com.uestc.crm.pojo.CluePO;
 
-import com.uestc.crm.query.ListClueQuery;
+import com.uestc.crm.query.ClueListQuery;
 import com.uestc.crm.service.ClueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,10 +41,11 @@ public class ClueServiceImpl extends ServiceImpl<ClueMapper, CluePO> implements 
         return update;
     }
 
-    public IPage<CluePO> listClue(ListClueQuery query) {
+    public IPage<CluePO> listClue(ClueListQuery query) {
         LambdaQueryWrapper<CluePO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(CluePO::getUsername, query.getUsername())
-                .eq(StrUtil.isNotBlank(query.getCustId()), CluePO:: getCustId, query.getCustId());
+                .eq(StrUtil.isNotBlank(query.getCustId()), CluePO:: getCustId, query.getCustId())
+                .orderByDesc(CluePO::getId);
         Page<CluePO> CluePage = clueMapper.selectPage(new Page<>(query.getCurrent(), query.getSize()), queryWrapper);
         return CluePage;
     }

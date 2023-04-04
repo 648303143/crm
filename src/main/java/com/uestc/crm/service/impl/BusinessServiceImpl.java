@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.uestc.crm.mapper.BusinessMapper;
 import com.uestc.crm.pojo.BusinessPO;
-import com.uestc.crm.query.ListBusinessQuery;
+import com.uestc.crm.query.BusinessListQuery;
 import com.uestc.crm.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, BusinessPO>
         return update;
     }
 
-    public Page<BusinessPO> listBusiness(ListBusinessQuery query) {
+    public Page<BusinessPO> listBusiness(BusinessListQuery query) {
         LambdaQueryWrapper<BusinessPO> queryWrapper = new LambdaQueryWrapper<>();
         if (StrUtil.isNotBlank(query.getBizId())) {
             queryWrapper.eq(BusinessPO::getBizId, query.getBizId());

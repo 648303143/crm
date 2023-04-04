@@ -2,7 +2,7 @@ package com.uestc.crm.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.uestc.crm.pojo.CluePO;
-import com.uestc.crm.query.ListClueQuery;
+import com.uestc.crm.query.ClueListQuery;
 import com.uestc.crm.service.impl.ClueServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
@@ -22,7 +22,7 @@ public class ClueController {
     private ClueServiceImpl clueServiceImpl;
 
     @PostMapping("/list")
-    public Result<IPage<CluePO>> listMyClue(@RequestBody ListClueQuery query) {
+    public Result<IPage<CluePO>> listMyClue(@RequestBody ClueListQuery query) {
         IPage<CluePO> cluePOS;
         try {
             cluePOS = clueServiceImpl.listClue(query);

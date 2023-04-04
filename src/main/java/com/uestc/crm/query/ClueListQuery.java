@@ -8,7 +8,7 @@ import lombok.Data;
  */
 
 @Data
-public class ListClueQuery extends BasePageQuery{
+public class ClueListQuery extends BasePageQuery{
     private String custId;
     private String username;
 }

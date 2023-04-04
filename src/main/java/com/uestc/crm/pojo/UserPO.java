@@ -1,5 +1,7 @@
 package com.uestc.crm.pojo;
 
+import com.alibaba.fastjson2.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -27,7 +29,7 @@ public class UserPO implements Serializable {
 
     private String password;
 
-    private String email;
+    private String phonenumber;
 
     private Long roleId;
 
@@ -35,4 +37,7 @@ public class UserPO implements Serializable {
 
     private Date updateTime;
 
+    @TableField(exist = false)
+    @JSONField(serialize = false)
+    private String roleName;
 }

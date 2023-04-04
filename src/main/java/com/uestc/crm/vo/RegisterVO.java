@@ -11,6 +11,5 @@ public class RegisterVO {
     private String username;
     private String password;
     private String checkPassword;
-    private String email;
-    private String phoneNumber;
+    private String phonenumber;
 }

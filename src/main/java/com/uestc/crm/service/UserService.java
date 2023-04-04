@@ -1,7 +1,9 @@
 package com.uestc.crm.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.uestc.crm.pojo.UserPO;
+import com.uestc.crm.query.UserListQuery;
 
 /**
  * @author zhangqingyang
@@ -11,4 +13,6 @@ import com.uestc.crm.pojo.UserPO;
 public interface UserService extends IService<UserPO> {
 
     UserPO getUserByUsername(String username);
+
+    IPage<UserPO> listUser(UserListQuery query);
 }

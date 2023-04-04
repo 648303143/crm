@@ -52,14 +52,14 @@ public class LoginController {
         String username = registerVO.getUsername();
         String password = registerVO.getPassword();
         String checkPassword = registerVO.getCheckPassword();
-        String email = registerVO.getEmail();
+        String phonenumber = registerVO.getPhonenumber();
 
-        if (!StrUtil.isAllNotBlank(email, password, checkPassword, username)) {
+        if (!StrUtil.isAllNotBlank(phonenumber, password, checkPassword, username)) {
             return Result.error(ExceptionCodeEnum.EMPTY_PARAM, "参数不全");
         }
         long result = 0;
         try {
-            result = loginService.userRegister(username, password, checkPassword, email);
+            result = loginService.userRegister(username, password, checkPassword, phonenumber);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.error(ExceptionCodeEnum.ERROR, e.getMessage());
@@ -89,7 +89,7 @@ public class LoginController {
         UserInfoVO userInfo = new UserInfoVO();
         try {
             UserPO user = SecurityUtils.getLoginUser().getUser();
-            String role = roleService.getRoleById(user.getRoleId());
+            String role = roleService.getRoleKeyById(user.getRoleId());
             // 权限集合
             Set<String> permissions = menuService.getMenuPermsByRoleId(user.getRoleId());
             userInfo.setUser(user);

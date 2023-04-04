@@ -3,7 +3,6 @@ package com.uestc.crm.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
@@ -14,15 +13,12 @@ import com.uestc.crm.pojo.CarPO;
 import com.uestc.crm.pojo.CluePO;
 import com.uestc.crm.pojo.CustomerPO;
 import com.uestc.crm.pojo.OrderPO;
-import com.uestc.crm.query.ListCustomerQuery;
-import com.uestc.crm.query.ListOrderQuery;
+import com.uestc.crm.query.OrderListQuery;
 import com.uestc.crm.service.OrderService;
 import com.uestc.crm.vo.OrderAddVO;
 import com.uestc.crm.vo.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author zhangqingyang
@@ -88,7 +84,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderPO> implemen
         return orderMapper.delete(queryWrapper);
     }
 
-    public IPage<OrderVO> listOrder(ListOrderQuery query) {
+    public IPage<OrderVO> listOrder(OrderListQuery query) {
         MPJLambdaWrapper<OrderPO> queryWrapper = new MPJLambdaWrapper<>();
         queryWrapper.selectAll(OrderPO.class)
                 .selectAs(CarPO::getTitle, OrderVO::getCarTitle)
@@ -109,7 +105,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderPO> implemen
         return page;
     }
 
-    public IPage<OrderVO> listMyOrder(ListOrderQuery query) {
+    public IPage<OrderVO> listMyOrder(OrderListQuery query) {
         MPJLambdaWrapper<OrderPO> queryWrapper = new MPJLambdaWrapper<>();
         queryWrapper.selectAll(OrderPO.class)
                 .selectAs(CarPO::getTitle, OrderVO::getCarTitle)

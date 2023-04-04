@@ -24,8 +24,7 @@ public class LoginTest {
         registerVO.setUsername("huyidao");
         registerVO.setPassword("huyidao");
         registerVO.setCheckPassword("huyidao");
-        registerVO.setEmail("huyidao@qq.com");
-        registerVO.setPhoneNumber("12324354567");
+        registerVO.setPhonenumber("12324354567");
         Result<Long> result = loginController.register(registerVO);
         System.out.println(result);
     }

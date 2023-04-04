@@ -3,17 +3,12 @@ package com.uestc.crm.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.gson.Gson;
 import com.uestc.crm.pojo.BusinessPO;
-import com.uestc.crm.pojo.CustomerPO;
-import com.uestc.crm.query.ListBusinessQuery;
-import com.uestc.crm.query.ListCustomerQuery;
+import com.uestc.crm.query.BusinessListQuery;
 import com.uestc.crm.service.impl.BusinessServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author zhangqingyang
@@ -53,7 +48,7 @@ public class BusinessController {
     }
 
     @PostMapping("/list")
-    public Result<IPage<BusinessPO>> listBusiness(@RequestBody ListBusinessQuery query) {
+    public Result<IPage<BusinessPO>> listBusiness(@RequestBody BusinessListQuery query) {
         IPage<BusinessPO> businessPOS;
         try {
             businessPOS = businessServiceImpl.listBusiness(query);

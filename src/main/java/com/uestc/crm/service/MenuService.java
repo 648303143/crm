@@ -2,7 +2,8 @@ package com.uestc.crm.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.uestc.crm.pojo.MenuPO;
-import com.uestc.crm.vo.RouterVo;
+import com.uestc.crm.vo.RouterVO;
+import com.uestc.crm.vo.TreeSelectVO;
 
 import java.util.List;
 
@@ -15,13 +16,13 @@ public interface MenuService extends IService<MenuPO>{
 
     List<MenuPO> getMenuTreeByRoleId(Long roleId);
 
-    List<RouterVo> buildMenus(List<MenuPO> menus);
+    List<RouterVO> buildMenus(List<MenuPO> menus);
 
-    List<MenuPO> selectMenuList(Long userId);
+    List<MenuPO> selectMenuListByRoleId(Long userId);
 
-    List<MenuPO> selectMenuList(MenuPO menu, Long userId);
+    List<Long> selectMenuIdListByRoleId(Long roleId);
 
-    List<Long> selectMenuListByRoleId(Long roleId);
+    List<TreeSelectVO> buildMenuTreeSelect(List<MenuPO> menus);
 
     List<MenuPO> buildMenuTree(List<MenuPO> menus);
 }

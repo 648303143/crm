@@ -8,7 +8,7 @@ import lombok.Data;
  */
 
 @Data
-public class ListBusinessQuery extends BasePageQuery{
+public class BusinessListQuery extends BasePageQuery{
     private Integer type;
     private String bizId;
 

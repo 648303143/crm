@@ -3,7 +3,7 @@ package com.uestc.crm.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.uestc.crm.pojo.CarPO;
-import com.uestc.crm.query.ListCarQuery;
+import com.uestc.crm.query.CarListQuery;
 import com.uestc.crm.service.impl.CarServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
@@ -49,7 +49,7 @@ public class CarController {
     }
 
     @PostMapping("/list")
-    public Result<IPage<CarPO>> listCar(@RequestBody ListCarQuery query) {
+    public Result<IPage<CarPO>> listCar(@RequestBody CarListQuery query) {
         IPage<CarPO> carPOS;
         try {
             carPOS = carServiceImpl.listCar(query);
