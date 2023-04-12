@@ -6,7 +6,6 @@ import com.alibaba.fastjson2.JSON;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
 import com.uestc.crm.util.ServletUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -25,7 +24,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
-        int code = HttpStatus.UNAUTHORIZED.value();
         String msg = StrUtil.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
         ServletUtils.renderString(response, JSON.toJSONString(Result.error(ExceptionCodeEnum.ERROR, msg)));
     }

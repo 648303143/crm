@@ -89,8 +89,8 @@ public class UserController {
     @PostMapping("/delete")
     public Result deleteUser(@RequestBody String username) {
         try {
-            if (SecurityUtils.getLoginUser().getUser().getUsername().equals(username)){
-                return Result.error(ExceptionCodeEnum.ERROR,"不能删除自己");
+            if (SecurityUtils.getLoginUser().getUser().getUsername().equals(username)) {
+                return Result.error(ExceptionCodeEnum.ERROR, "不能删除自己");
             }
             userService.deleteUser(username);
         } catch (Exception e) {
@@ -99,7 +99,6 @@ public class UserController {
         }
         return Result.success();
     }
-
 
 
 }

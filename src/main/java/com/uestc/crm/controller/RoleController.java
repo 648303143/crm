@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.uestc.crm.pojo.RolePO;
 import com.uestc.crm.query.RoleListQuery;
 import com.uestc.crm.service.impl.RoleServiceImpl;
-import com.uestc.crm.service.impl.TokenService;
-import com.uestc.crm.service.impl.UserServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
 import com.uestc.crm.vo.RoleMenuVO;
@@ -27,12 +25,6 @@ public class RoleController {
 
     @Autowired
     private RoleServiceImpl roleService;
-
-    @Autowired
-    private TokenService tokenService;
-
-    @Autowired
-    private UserServiceImpl userService;
 
     @PostMapping("/list")
     public Result<Page<RolePO>> list(RoleListQuery query) {
@@ -109,82 +101,5 @@ public class RoleController {
         }
         return Result.success();
     }
-//
-//    /**
-//     * 状态修改
-//     */
-//    @PreAuthorize("@ss.hasPermi('system:role:edit')")
-//    @Log(title = "角色管理", RoleType = RoleType.UPDATE)
-//    @PutMapping("/changeStatus")
-//    public Result changeStatus(@RequestBody RolePO role) {
-//        roleService.checkRoleAllowed(role);
-//        roleService.checkRoleDataScope(role.getRoleId());
-//        role.setUpdateBy(getUsername());
-//        return toAjax(roleService.updateRoleStatus(role));
-//    }
-
-//
-//    /**
-//     * 获取角色选择框列表
-//     */
-//    @PreAuthorize("@ss.hasPermi('system:role:query')")
-//    @GetMapping("/optionselect")
-//    public Result optionselect() {
-//        return success(roleService.selectRoleAll());
-//    }
-//
-//    /**
-//     * 查询已分配用户角色列表
-//     */
-//    @PreAuthorize("@ss.hasPermi('system:role:list')")
-//    @GetMapping("/authUser/allocatedList")
-//    public TableDataInfo allocatedList(SysUser user) {
-//        startPage();
-//        List<SysUser> list = userService.selectAllocatedList(user);
-//        return getDataTable(list);
-//    }
-//
-//    /**
-//     * 查询未分配用户角色列表
-//     */
-//    @PreAuthorize("@ss.hasPermi('system:role:list')")
-//    @GetMapping("/authUser/unallocatedList")
-//    public TableDataInfo unallocatedList(SysUser user) {
-//        startPage();
-//        List<SysUser> list = userService.selectUnallocatedList(user);
-//        return getDataTable(list);
-//    }
-//
-//    /**
-//     * 取消授权用户
-//     */
-//    @PreAuthorize("@ss.hasPermi('system:role:edit')")
-//    @Log(title = "角色管理", RoleType = RoleType.GRANT)
-//    @PutMapping("/authUser/cancel")
-//    public Result cancelAuthUser(@RequestBody SysUserRole userRole) {
-//        return toAjax(roleService.deleteAuthUser(userRole));
-//    }
-//
-//    /**
-//     * 批量取消授权用户
-//     */
-//    @PreAuthorize("@ss.hasPermi('system:role:edit')")
-//    @Log(title = "角色管理", RoleType = RoleType.GRANT)
-//    @PutMapping("/authUser/cancelAll")
-//    public Result cancelAuthUserAll(Long roleId, Long[] userIds) {
-//        return toAjax(roleService.deleteAuthUsers(roleId, userIds));
-//    }
-//
-//    /**
-//     * 批量选择用户授权
-//     */
-//    @PreAuthorize("@ss.hasPermi('system:role:edit')")
-//    @Log(title = "角色管理", RoleType = RoleType.GRANT)
-//    @PutMapping("/authUser/selectAll")
-//    public Result selectAuthUserAll(Long roleId, Long[] userIds) {
-//        roleService.checkRoleDataScope(roleId);
-//        return toAjax(roleService.insertAuthUsers(roleId, userIds));
-//    }
-//
 
 }

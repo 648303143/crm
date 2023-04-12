@@ -1,6 +1,5 @@
 package com.uestc.crm.query;
 
-import lombok.Data;
 
 /**
  * @author zhangqingyang

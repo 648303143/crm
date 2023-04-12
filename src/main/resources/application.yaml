@@ -1,3 +1,6 @@
+logging:
+  level:
+    com.uestc.crm: info
 
 server:
   port: 8080   #端口号
@@ -5,10 +8,12 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/crm?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
+    hikari:
+      maximum-pool-size:  20
   redis:
     database: 0
     host: 127.0.0.1
@@ -23,7 +28,19 @@ spring:
         min-idle: 0
   mvc:
     static-path-pattern: /static/**
-    
+
+  rabbitmq:
+    port: 5672
+    host: localhost
+    username: guest
+    password: guest
+    #这个配置是保证提供者确保消息推送到交换机中，不管成不成功，都会回调
+    publisher-confirm-type: correlated
+    #保证交换机能把消息推送到队列中
+    publisher-returns: true
+    virtual-host: /
+    template:
+      mandatory: true
 
 # mybatis-plus相关配置
 mybatis-plus:
@@ -43,7 +60,7 @@ mybatis-plus:
     # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
     call-setters-on-nulls: true
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
 
 # token配置
 token:

@@ -21,18 +21,9 @@ public enum ExceptionCodeEnum {
     SUCCESS(20000, "成功"),
 
     /**
-     * 用户登录
-     */
-    NEED_LOGIN(900, "用户未登录"),
-    USER_NOT_EXIST(901, "用户不存在"),
-    PASSWORD_ERROR(902, "密码错误"),
-
-    /**
      * 参数校验
      */
-    ERROR_PARAM(10000, "参数错误"),
-    EMPTY_PARAM(10001, "参数为空"),
-    ERROR_PARAM_LENGTH(10002, "参数长度错误");
+    EMPTY_PARAM(10001, "参数为空");
 
     private final Integer code;
     private final String desc;

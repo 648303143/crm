@@ -30,16 +30,6 @@ public class MenuController {
         return Result.success(menus);
     }
 
-//    /**
-//     * 获取菜单下拉树列表
-//     */
-//    @GetMapping("/treeselect")
-//    public Result treeselect(MenuPO menu)
-//    {
-//        List<MenuPO> menus = menuService.selectMenuList(menu, getUserId());
-//        return success(menuService.buildMenuTreeSelect(menus));
-//    }
-
     /**
      * 加载对应角色菜单列表树
      */

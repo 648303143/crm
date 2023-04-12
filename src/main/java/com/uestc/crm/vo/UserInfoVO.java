@@ -18,7 +18,5 @@ import java.util.Set;
 public class UserInfoVO {
     private UserPO user;
 
-    private String role;
-
     private Set<String> permissions;
 }

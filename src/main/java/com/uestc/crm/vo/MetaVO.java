@@ -5,14 +5,12 @@ import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 
 /**
- * 路由显示信息
- * 
- * @author ruoyi
+ * @author zhangqingyang
+ * @create 2023-04-2023/4/2 22:04
  */
 
 @Data
-public class MetaVO
-{
+public class MetaVO {
     /**
      * 设置该路由在侧边栏和面包屑中展示的名字
      */
@@ -33,37 +31,31 @@ public class MetaVO
      */
     private String link;
 
-    public MetaVO()
-    {
+    public MetaVO() {
     }
 
-    public MetaVO(String title, String icon)
-    {
+    public MetaVO(String title, String icon) {
         this.title = title;
         this.icon = icon;
     }
 
-    public MetaVO(String title, String icon, boolean noCache)
-    {
+    public MetaVO(String title, String icon, boolean noCache) {
         this.title = title;
         this.icon = icon;
         this.noCache = noCache;
     }
 
-    public MetaVO(String title, String icon, String link)
-    {
+    public MetaVO(String title, String icon, String link) {
         this.title = title;
         this.icon = icon;
         this.link = link;
     }
 
-    public MetaVO(String title, String icon, boolean noCache, String link)
-    {
+    public MetaVO(String title, String icon, boolean noCache, String link) {
         this.title = title;
         this.icon = icon;
         this.noCache = noCache;
-        if (StrUtil.startWithAny(link, "http://", "https://"))
-        {
+        if (StrUtil.startWithAny(link, "http://", "https://")) {
             this.link = link;
         }
     }

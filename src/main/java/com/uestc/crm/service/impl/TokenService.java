@@ -2,17 +2,13 @@ package com.uestc.crm.service.impl;
 
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.useragent.UserAgent;
-import cn.hutool.http.useragent.UserAgentUtil;
-import io.jsonwebtoken.SignatureAlgorithm;
 import com.uestc.crm.common.CacheConstants;
 import com.uestc.crm.common.Constants;
 import com.uestc.crm.model.LoginUser;
-import com.uestc.crm.util.IpUtils;
-import com.uestc.crm.util.ServletUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -24,11 +20,11 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * token验证处理
- *
- * @author ruoyi
+ * @author zhangqingyang
+ * @create 2023-04-2023/4/2 22:04
  */
 @Component
+@Slf4j
 public class TokenService {
     // 令牌自定义标识
     @Value("${token.header}")
@@ -48,7 +44,6 @@ public class TokenService {
 
     private static final Long MILLIS_MINUTE_TEN = 10 * 60 * 1000L;
 
-    @Autowired
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -60,6 +55,7 @@ public class TokenService {
     public LoginUser getLoginUser(HttpServletRequest request) {
         // 获取请求携带的令牌
         String token = getToken(request);
+
         if (StrUtil.isNotEmpty(token)) {
             try {
                 Claims claims = parseToken(token);
@@ -74,15 +70,6 @@ public class TokenService {
             }
         }
         return null;
-    }
-
-    /**
-     * 设置用户身份信息
-     */
-    public void setLoginUser(LoginUser loginUser) {
-        if (loginUser != null && StrUtil.isNotEmpty(loginUser.getToken())) {
-            refreshToken(loginUser);
-        }
     }
 
     /**
@@ -104,7 +91,6 @@ public class TokenService {
     public String createToken(LoginUser loginUser) {
         String token = UUID.fastUUID().toString();
         loginUser.setToken(token);
-        setUserAgent(loginUser);
         refreshToken(loginUser);
 
         Map<String, Object> claims = new HashMap<>();
@@ -139,18 +125,6 @@ public class TokenService {
         redisTemplate.opsForValue().set(userKey, loginUser, expireTime, TimeUnit.MINUTES);
     }
 
-    /**
-     * 设置用户代理信息
-     *
-     * @param loginUser 登录信息
-     */
-    public void setUserAgent(LoginUser loginUser) {
-        UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
-        String ip = IpUtils.getIpAddr();
-        loginUser.setIpaddr(ip);
-        loginUser.setBrowser(userAgent.getBrowser().getName());
-        loginUser.setOs(userAgent.getOs().getName());
-    }
 
     /**
      * 从数据声明生成令牌
@@ -179,17 +153,6 @@ public class TokenService {
     }
 
     /**
-     * 从令牌中获取用户名
-     *
-     * @param token 令牌
-     * @return 用户名
-     */
-    public String getUsernameFromToken(String token) {
-        Claims claims = parseToken(token);
-        return claims.getSubject();
-    }
-
-    /**
      * 获取请求token
      *
      * @param request
@@ -197,6 +160,7 @@ public class TokenService {
      */
     private String getToken(HttpServletRequest request) {
         String token = request.getHeader(header);
+        log.info("请求携带的token::{}, 当前时间::{}", token, System.currentTimeMillis());
         if (StrUtil.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
             token = token.replace(Constants.TOKEN_PREFIX, "");
         }

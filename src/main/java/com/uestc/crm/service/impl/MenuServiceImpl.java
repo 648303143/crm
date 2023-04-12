@@ -57,8 +57,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuPO> implements 
         } else {
             MPJLambdaWrapper<MenuPO> queryWrapper = new MPJLambdaWrapper<>();
             queryWrapper.selectAll(MenuPO.class)
-                    .leftJoin(RoleMenuPO.class, RoleMenuPO::getMenuId, MenuPO::getMenuId)
                     .leftJoin(RolePO.class, RolePO::getRoleId, RoleMenuPO::getRoleId)
+                    .leftJoin(RoleMenuPO.class, RoleMenuPO::getMenuId, MenuPO::getMenuId)
                     .eq(RolePO::getRoleId, roleId)
                     .in(MenuPO::getMenuType, "M", "C")
                     .eq(RolePO::getStatus, 0)

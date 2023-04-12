@@ -1,15 +1,20 @@
 package com.uestc.crm;
 
 import cn.hutool.core.lang.UUID;
+import com.google.gson.Gson;
 import com.uestc.crm.mapper.ClueMapper;
 import com.uestc.crm.pojo.CluePO;
 import com.uestc.crm.service.impl.ClueServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author zhangqingyang
@@ -17,6 +22,7 @@ import java.util.HashSet;
  */
 
 @SpringBootTest
+@Slf4j
 public class ClueTest {
 
     @Autowired
@@ -24,6 +30,15 @@ public class ClueTest {
 
     @Autowired
     ClueServiceImpl clueService;
+
+    @Resource
+    private List<String> customerIds;
+
+    private Random random = new Random();
+
+    private CountDownLatch countDownLatch = new CountDownLatch(10000);
+
+    private CountDownLatch end = new CountDownLatch(10000);
 
     @Test
     public void test_createClue() {
@@ -54,5 +69,40 @@ public class ClueTest {
     public void test_distributeClue() {
         String huyidao = clueService.distributeClue("huyidao");
         System.out.println(huyidao);
+    }
+
+    @Test
+    public void test01() {
+        CluePO cluePO = new CluePO();
+        Gson gson = new Gson();
+        String s = gson.toJson(cluePO);
+        System.out.println(s);
+    }
+
+    @Test
+    public void test02() throws InterruptedException {
+        for (int i = 0; i < 10000; i++) {
+            new Thread(() -> {
+                CluePO clue = new CluePO();
+                clue.setClueId(UUID.fastUUID().toString());
+                clue.setCustId(customerIds.get(random.nextInt(customerIds.size())));
+                clue.setClueType(random.nextInt(2) + 1);
+                clue.setClueWay(random.nextInt(3) + 1);
+                try {
+                    countDownLatch.await();
+                    long s = System.currentTimeMillis();
+                    int result = clueService.addClue(clue);
+                    long e = System.currentTimeMillis();
+                    log.info("总耗时::{}", e-s);
+                } catch (InterruptedException e) {
+                    log.error("出错了!!!!!!!!!!");
+                    e.printStackTrace();
+                } finally {
+                    end.countDown();
+                }
+            }, "thread"+i).start();
+            countDownLatch.countDown();
+        }
+        end.await();
     }
 }

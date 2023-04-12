@@ -8,16 +8,14 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * 路由配置信息
- * 
- * @author ruoyi
+ * @author zhangqingyang
+ * @create 2023-04-2023/4/2 22:04
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class RouterVO
-{
+public class RouterVO {
     /**
      * 路由名字
      */

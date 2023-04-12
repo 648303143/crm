@@ -1,19 +1,16 @@
 package com.uestc.crm.common;
 
 /**
- * 缓存的key 常量
- * 
- * @author ruoyi
+ * @author zhangqingyang
+ * @create 2023-02-2023/2/9 18:52
  */
-public class CacheConstants
-{
-    /**
-     * 登录用户 redis key
-     */
+public class CacheConstants {
+
     public static final String LOGIN_TOKEN_KEY = "login_tokens:";
 
-    /**
-     * 字典管理 cache key
-     */
-    public static final String SYS_DICT_KEY = "sys_dict:";
+    public static final String DICT_KEY = "dict:";
+
+    public static final String CUSTOMER_QUERY_KEY = "customer_query:";
+
+
 }

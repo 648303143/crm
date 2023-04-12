@@ -1,6 +1,7 @@
 package com.uestc.crm;
 
 import com.google.gson.Gson;
+import com.uestc.crm.mapper.CustomerMapper;
 import com.uestc.crm.pojo.CustomerPO;
 import com.uestc.crm.service.impl.CustomerServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,9 @@ public class CustomerTest {
 
     @Autowired
     CustomerServiceImpl customerService;
+
+    @Autowired
+    CustomerMapper customerMapper;
 
     @Test
     public void test_update() {

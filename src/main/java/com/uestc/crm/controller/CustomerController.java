@@ -2,13 +2,17 @@ package com.uestc.crm.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.uestc.crm.common.CacheConstants;
 import com.uestc.crm.pojo.CustomerPO;
 import com.uestc.crm.query.CustomerListQuery;
 import com.uestc.crm.service.impl.CustomerServiceImpl;
 import com.uestc.crm.util.ExceptionCodeEnum;
 import com.uestc.crm.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * @author zhangqingyang
@@ -21,6 +25,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerServiceImpl customerServiceImpl;
+
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
     @PostMapping("/add")
     public Result addCustomer(@RequestBody CustomerPO customerPO) {
@@ -70,9 +77,16 @@ public class CustomerController {
     public Result getCustomerById(@RequestBody String custId) {
         CustomerPO customerPO;
         try {
-            LambdaQueryWrapper<CustomerPO> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.eq(CustomerPO::getCustId, custId);
-            customerPO = customerServiceImpl.getOne(queryWrapper);
+            String key = CacheConstants.CUSTOMER_QUERY_KEY + custId;
+            if (Boolean.TRUE.equals(redisTemplate.hasKey(key))) {
+                customerPO = (CustomerPO) redisTemplate.opsForValue().get(key);
+            } else {
+                LambdaQueryWrapper<CustomerPO> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(CustomerPO::getCustId, custId);
+                customerPO = customerServiceImpl.getOne(queryWrapper);
+                redisTemplate.opsForValue().set(key, customerPO);
+            }
+
         } catch (Exception e) {
             return Result.error(ExceptionCodeEnum.ERROR);
         }

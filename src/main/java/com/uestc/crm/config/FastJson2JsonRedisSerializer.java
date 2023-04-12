@@ -10,37 +10,30 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Redis使用FastJson序列化
- * 
- * @author ruoyi
+ * @author zhangqingyang
+ * @create 2023-02-2023/2/9 18:52
  */
-public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T>
-{
+public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T> {
     public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
     private final Class<T> clazz;
 
-    public FastJson2JsonRedisSerializer(Class<T> clazz)
-    {
+    public FastJson2JsonRedisSerializer(Class<T> clazz) {
         super();
         this.clazz = clazz;
     }
 
     @Override
-    public byte[] serialize(T t) throws SerializationException
-    {
-        if (t == null)
-        {
+    public byte[] serialize(T t) throws SerializationException {
+        if (t == null) {
             return new byte[0];
         }
         return JSON.toJSONString(t, JSONWriter.Feature.WriteClassName).getBytes(DEFAULT_CHARSET);
     }
 
     @Override
-    public T deserialize(byte[] bytes) throws SerializationException
-    {
-        if (bytes == null || bytes.length <= 0)
-        {
+    public T deserialize(byte[] bytes) throws SerializationException {
+        if (bytes == null || bytes.length <= 0) {
             return null;
         }
         String str = new String(bytes, DEFAULT_CHARSET);

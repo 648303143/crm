@@ -20,8 +20,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginUser implements UserDetails
-{
+public class LoginUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -40,21 +39,6 @@ public class LoginUser implements UserDetails
     private Long expireTime;
 
     /**
-     * 登录IP地址
-     */
-    private String ipaddr;
-
-    /**
-     * 浏览器类型
-     */
-    private String browser;
-
-    /**
-     * 操作系统
-     */
-    private String os;
-
-    /**
      * 权限列表
      */
     private Set<String> permissions;
@@ -64,7 +48,7 @@ public class LoginUser implements UserDetails
      */
     private UserPO user;
 
-    public LoginUser(UserPO user, Set<String> permissions){
+    public LoginUser(UserPO user, Set<String> permissions) {
         this.user = user;
         this.permissions = permissions;
     }
@@ -72,14 +56,12 @@ public class LoginUser implements UserDetails
 
     @JSONField(serialize = false)
     @Override
-    public String getPassword()
-    {
+    public String getPassword() {
         return user.getPassword();
     }
 
     @Override
-    public String getUsername()
-    {
+    public String getUsername() {
         return user.getUsername();
     }
 
@@ -88,8 +70,7 @@ public class LoginUser implements UserDetails
      */
     @JSONField(serialize = false)
     @Override
-    public boolean isAccountNonExpired()
-    {
+    public boolean isAccountNonExpired() {
         return true;
     }
 
@@ -100,8 +81,7 @@ public class LoginUser implements UserDetails
      */
     @JSONField(serialize = false)
     @Override
-    public boolean isAccountNonLocked()
-    {
+    public boolean isAccountNonLocked() {
         return true;
     }
 
@@ -112,8 +92,7 @@ public class LoginUser implements UserDetails
      */
     @JSONField(serialize = false)
     @Override
-    public boolean isCredentialsNonExpired()
-    {
+    public boolean isCredentialsNonExpired() {
         return true;
     }
 
@@ -124,14 +103,12 @@ public class LoginUser implements UserDetails
      */
     @Override
     @JSONField(serialize = false)
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return true;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities()
-    {
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 }

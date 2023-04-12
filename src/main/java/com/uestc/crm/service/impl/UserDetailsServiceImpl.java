@@ -5,8 +5,7 @@ import com.uestc.crm.pojo.UserPO;
 import com.uestc.crm.security.context.AuthenticationContextHolder;
 import com.uestc.crm.service.UserService;
 import com.uestc.crm.util.SecurityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +21,8 @@ import java.util.Set;
  * @create 2023-04-2023/4/1 11:13
  */
 @Service
+@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
     @Autowired
     private UserService userService;
@@ -56,7 +55,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             perms.add("*:*:*");
         } else {
             perms.addAll(menuService.getMenuPermsByRoleId(user.getRoleId()));
-
         }
         return new LoginUser(user, perms);
     }
